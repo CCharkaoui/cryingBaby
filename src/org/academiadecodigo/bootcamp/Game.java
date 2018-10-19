@@ -55,6 +55,8 @@ public class Game implements KeyboardHandler {
 
         keyboard = new Keyboard(this);
         keyboardInit();
+        pickObject();
+
     }
 
     // Getters/setters
@@ -107,6 +109,24 @@ public class Game implements KeyboardHandler {
         keyboard.addEventListener(right);
         keyboard.addEventListener(up);
         keyboard.addEventListener(down);
+    }
+
+    public void pickObject () {
+
+        while(true)
+        for (int row = 0; row < ROWS; row++) {
+            for (int col = 0; col < COLS; col++) {
+
+                if (player.getCol() == objectsPosition[row][col].getCol() && player.getRow() == objectsPosition[row][col].getRow()) {
+
+                    ((Object)objectsPosition[row][col]).getObjectPicture().delete();
+                    ObjectFactory.createRandomObjects(this);
+                }
+            }
+
+        }
+
+
     }
 
 
