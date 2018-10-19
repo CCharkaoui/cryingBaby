@@ -6,6 +6,7 @@ import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
+import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Game implements KeyboardHandler {
 
@@ -15,6 +16,7 @@ public class Game implements KeyboardHandler {
     private int cols;
     private int rows;
     private Rectangle field;
+    private Picture[][] fieldPictures;
 
     public Game(int cols, int rows) {
 
@@ -24,6 +26,19 @@ public class Game implements KeyboardHandler {
         field = new Rectangle(Position.PADDING, Position.PADDING, this.cols * Position.CELL_SIZE, this.rows * Position.CELL_SIZE);
         field.setColor(Color.BLACK);
         field.draw();
+
+        fieldPictures = new Picture[3][5];
+
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 5; col++) {
+                fieldPictures[row][col] = new Picture(col * Position.CELL_SIZE * 4 + Position.PADDING, row * Position.CELL_SIZE * 4 + Position.PADDING, "resources/floor.png");
+                fieldPictures[row][col].draw();
+            }
+        }
+
+
+        //fieldPicture = new Picture(0, 0"resources/floor.png");
+        //fieldPicture.draw();
 
         cells = new Position[rows][cols];
         for (int row = 0; row < rows; row++) {
