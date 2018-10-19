@@ -13,7 +13,8 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
  */
 public class Game implements KeyboardHandler {
 
-    // Properties
+    // Propertieso
+    public final static int NUMBER_OF_OBJECTS = 6;
     private GameObjects[][] objectsPosition;
     private Keyboard keyboard;
     private Player player;
@@ -47,17 +48,8 @@ public class Game implements KeyboardHandler {
         objectsPosition = new GameObjects[rows][cols];
         objectsPosition[rows/2][cols/2] = new Baby(rows/2, cols/2);
 
-        for (int numberObjects = 0; numberObjects < 6; numberObjects++) {
+        objectsPosition = ObjectFactory.createRandomObjects(this);
 
-            int rowRandom = Randomizer.getRandom(rows-1);
-            int colRandom = Randomizer.getRandom(cols-1);
-            System.out.println(rows);
-            System.out.println(cols);
-                if (objectsPosition[rowRandom][colRandom] == null) {
-                    objectsPosition[rowRandom][colRandom] = new Object(rowRandom, colRandom);
-                }
-
-        }
 
 
         // Player and keyboard setup
