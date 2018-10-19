@@ -8,8 +8,8 @@ public class Object extends GameObjects {
     private Picture objectPicture;
 
     //constructor
-    public Object(int col, int row) {
-        super(col, row);
+    public Object(int row, int col) {
+        super(row, col);
 
         objectPicture = new Picture(getRectangle().getX(),getRectangle().getY()
                 , "resources/" + ObjectType.generateRandomObject() + ".png");

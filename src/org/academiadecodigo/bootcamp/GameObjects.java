@@ -13,18 +13,13 @@ public class GameObjects {
     public static final int CELL_SIZE = 64;
     private int col = 0;
     private int row = 0;
-    private int x;
-    private int y;
     private Rectangle rectangle;
 
     //constructor
-    public GameObjects(int col, int row) {
+    public GameObjects(int row, int col) {
 
 
-        x = PADDING + CELL_SIZE * row;
-        y = PADDING + CELL_SIZE * col;
-
-        rectangle = new Rectangle(x, y, CELL_SIZE, CELL_SIZE);
+        rectangle = new Rectangle(colToX(col), rowToY(row), CELL_SIZE, CELL_SIZE);
     }
 
 
@@ -39,6 +34,20 @@ public class GameObjects {
 
     public int getCol() {
         return col;
+    }
+
+    private int rowToY (int row) {
+
+        int y = PADDING + CELL_SIZE * row;
+
+        return y;
+    }
+
+    private int colToX (int col) {
+
+        int x = PADDING + CELL_SIZE * col;
+
+        return x;
     }
 }
 

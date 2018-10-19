@@ -10,7 +10,7 @@ public class Player extends GameObjects {
     private int row;
 
     //constructor
-    public Player(int col, int row) {
+    public Player(int row, int col) {
         super(col, row);
         this.col = col;
         this.row = row;

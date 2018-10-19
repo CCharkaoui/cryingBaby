@@ -11,10 +11,11 @@ public class ObjectFactory {
 
     public static GameObjects[][] createRandomObjects(Game game) {
 
+    //TO DO: PUT THIS WORKING WELL!!!!! WHILE AN OBJECT IS ELIMINATED CREATES ALWAYS NEW OBJECTS UP TO MAX
 
         GameObjects[][] temp = new GameObjects[Game.ROWS][Game.COLS];
-
-        for (int numberObjects = 0; numberObjects < Game.NUMBER_OF_OBJECTS; ) {
+        //while (game.getNumberPictures() )
+        for (int numberObjects = 0; numberObjects < Game.MAX_NUMBER_OF_OBJECTS; ) {
 
             int rowRandom = Randomizer.getRandom(Game.ROWS - 1);
             int colRandom = Randomizer.getRandom(Game.COLS - 1);
@@ -25,6 +26,7 @@ public class ObjectFactory {
 
                 temp[rowRandom][colRandom] = new Object(rowRandom, colRandom);
                 ++numberObjects;
+                //game.changeNumberPictures();
             }
 
         }

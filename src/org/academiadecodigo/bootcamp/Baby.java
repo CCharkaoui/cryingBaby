@@ -10,8 +10,8 @@ public class Baby extends GameObjects {
 
 
     // constructor
-    public Baby(int col, int row) {
-        super(col, row);
+    public Baby(int row, int col) {
+        super(row, col);
         this.crying = false;
         babyPicture = new Picture(getRectangle().getX(), getRectangle().getY(), "resources/babyNormal.png");
         babyPicture.draw();

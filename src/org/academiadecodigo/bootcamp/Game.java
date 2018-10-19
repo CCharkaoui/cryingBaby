@@ -14,7 +14,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Game implements KeyboardHandler {
 
     // Properties
-    public final static int NUMBER_OF_OBJECTS = 6;
+    public final static int MAX_NUMBER_OF_OBJECTS = 6;
     public final static int COLS = 20;
     public final static int ROWS = 12;
     private GameObjects[][] objectsPosition;
@@ -23,6 +23,7 @@ public class Game implements KeyboardHandler {
     private Baby baby;
     private Rectangle field;
     private Picture[][] fieldPictures;
+    private int numberPictures = 0;
 
     // Constructor
     public Game() {
@@ -46,16 +47,13 @@ public class Game implements KeyboardHandler {
 
         // Set game objects position
         objectsPosition = new GameObjects[ROWS][COLS];
-        objectsPosition[ROWS/2][COLS/2] = new Baby(ROWS/2, COLS/2);
+        objectsPosition[ROWS / 2][COLS / 2] = new Baby(ROWS / 2, COLS / 2);
 
         objectsPosition = ObjectFactory.createRandomObjects(this);
 
 
-
-
         keyboard = new Keyboard(this);
         keyboardInit();
-        pickObject();
 
     }
 
@@ -68,6 +66,13 @@ public class Game implements KeyboardHandler {
         return player;
     }
 
+    public int getNumberPictures() {
+        return numberPictures;
+    }
+
+    public void changeNumberPictures(int numberPictures) {
+        this.numberPictures = numberPictures;
+    }
 
     // Methods
 
@@ -111,24 +116,16 @@ public class Game implements KeyboardHandler {
         keyboard.addEventListener(down);
     }
 
-    public void pickObject () {
+    public void checkObject() {
 
-        while(true)
-        for (int row = 0; row < ROWS; row++) {
-            for (int col = 0; col < COLS; col++) {
+            if (objectsPosition[player.getRow()][player.getCol()] != null) {
 
-                if (player.getCol() == objectsPosition[row][col].getCol() && player.getRow() == objectsPosition[row][col].getRow()) {
+                ((Object)objectsPosition[player.getRow()][player.getCol()]).getObjectPicture().delete();
+                ObjectFactory.createRandomObjects(this);
 
-                    ((Object)objectsPosition[row][col]).getObjectPicture().delete();
-                    ObjectFactory.createRandomObjects(this);
-                }
             }
 
-        }
-
-
     }
-
 
 
     @Override
@@ -138,20 +135,24 @@ public class Game implements KeyboardHandler {
             case KeyboardEvent.KEY_LEFT:
 
                 player.moveLeft();
+                checkObject();
 
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
                 break;
             case KeyboardEvent.KEY_RIGHT:
                 player.moveRight();
+                checkObject();
 
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
                 break;
             case KeyboardEvent.KEY_UP:
                 player.moveUp();
+                checkObject();
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
                 break;
             case KeyboardEvent.KEY_DOWN:
                 player.moveDown();
+                checkObject();
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
                 break;
         }
