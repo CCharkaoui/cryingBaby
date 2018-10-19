@@ -2,7 +2,7 @@ package org.academiadecodigo.bootcamp;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
-public class Position {
+public class GameObjects {
 
     public static final int PADDING = 10;
     public static final int CELL_SIZE = 64;
@@ -12,7 +12,7 @@ public class Position {
     private int y;
     private Rectangle rectangle;
 
-    public Position(int col, int row) {
+    public GameObjects(int col, int row) {
 
 
         x = PADDING + CELL_SIZE * row;

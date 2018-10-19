@@ -8,55 +8,67 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
+/**
+ * this class is responsible for the interaction between player, baby and objects
+ */
 public class Game implements KeyboardHandler {
 
-    private Position[][] cells;
+    // Properties
+    private GameObjects[][] objectsPosition;
     private Keyboard keyboard;
     private Player player;
+    private Baby baby;
     private int cols;
     private int rows;
     private Rectangle field;
     private Picture[][] fieldPictures;
 
+    // Constructor
     public Game(int cols, int rows) {
 
         this.cols = cols;
         this.rows = rows;
 
-        field = new Rectangle(Position.PADDING, Position.PADDING, this.cols * Position.CELL_SIZE, this.rows * Position.CELL_SIZE);
+        field = new Rectangle(GameObjects.PADDING, GameObjects.PADDING, this.cols * GameObjects.CELL_SIZE, this.rows * GameObjects.CELL_SIZE);
         field.setColor(Color.BLACK);
         field.draw();
 
         fieldPictures = new Picture[3][5];
 
+        // Draws field
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 5; col++) {
-                fieldPictures[row][col] = new Picture(col * Position.CELL_SIZE * 4 + Position.PADDING, row * Position.CELL_SIZE * 4 + Position.PADDING, "resources/floor.png");
+                fieldPictures[row][col] = new Picture(col * GameObjects.CELL_SIZE * 4 + GameObjects.PADDING, row * GameObjects.CELL_SIZE * 4 + GameObjects.PADDING, "resources/floor.png");
                 fieldPictures[row][col].draw();
             }
         }
 
+        // Set game objects position
+        objectsPosition = new GameObjects[rows][cols];
+        objectsPosition[rows/2][cols/2] = new Baby(rows/2, cols/2);
 
-        //fieldPicture = new Picture(0, 0"resources/floor.png");
-        //fieldPicture.draw();
+        for (int numberObjects = 0; numberObjects < 6; numberObjects++) {
 
-        cells = new Position[rows][cols];
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                cells[row][col] = new Position(col, row);
-            }
+            int rowRandom = Randomizer.getRandom(rows-1);
+            int colRandom = Randomizer.getRandom(cols-1);
+            System.out.println(rows);
+            System.out.println(cols);
+                if (objectsPosition[rowRandom][colRandom] == null) {
+                    objectsPosition[rowRandom][colRandom] = new Object(rowRandom, colRandom);
+                }
+
         }
 
 
+        // Player and keyboard setup
         player = new Player(0, 0, this);
         keyboard = new Keyboard(this);
-
         keyboardInit();
-
     }
 
-    public Position[][] getCells() {
-        return cells;
+    // Getters/setters
+    public GameObjects[][] getObjectsPosition() {
+        return objectsPosition;
     }
 
     public int getCols() {
@@ -67,6 +79,8 @@ public class Game implements KeyboardHandler {
         return rows;
     }
 
+    // Methods
+    //  keyboard events
     public void keyboardInit() {
 
 

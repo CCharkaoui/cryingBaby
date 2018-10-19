@@ -2,7 +2,7 @@ package org.academiadecodigo.bootcamp;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class Player extends Position {
+public class Player extends GameObjects {
 
     private Picture playerPicture;
     private Game game;
