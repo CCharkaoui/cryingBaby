@@ -4,20 +4,21 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player extends GameObjects {
 
+    //properties
     private Picture playerPicture;
-    private Game game;
     private int col;
     private int row;
 
-    public Player(int col, int row, Game game) {
+    //constructor
+    public Player(int col, int row) {
         super(col, row);
         this.col = col;
         this.row = row;
-        this.game = game;
         playerPicture = new Picture(getRectangle().getX(), getRectangle().getY(), "resources/front.png");
         playerPicture.draw();
     }
 
+    //getters & setters
     @Override
     public int getCol() {
         return col;
@@ -28,19 +29,20 @@ public class Player extends GameObjects {
         return row;
     }
 
+    //methods
     public void moveLeft() {
         if (col > 0) {
             this.playerPicture.load("resources/left.png");
-            this.playerPicture.translate(-getCellSize(), 0);
+            this.playerPicture.translate(-CELL_SIZE, 0);
             --col;
         }
     }
 
     public void moveRight() {
 
-        if (col < game.getCols() - 1) {
+        if (col < Game.COLS - 1) {
             this.playerPicture.load("resources/right.png");
-            this.playerPicture.translate(getCellSize(), 0);
+            this.playerPicture.translate(CELL_SIZE, 0);
             ++col;
         }
     }
@@ -49,16 +51,16 @@ public class Player extends GameObjects {
 
         if (row > 0) {
             this.playerPicture.load("resources/back.png");
-            this.playerPicture.translate(0, -getCellSize());
+            this.playerPicture.translate(0, -CELL_SIZE);
             --row;
         }
     }
 
     public void moveDown() {
 
-        if (row < game.getRows() - 1) {
+        if (row < Game.ROWS - 1) {
             this.playerPicture.load("resources/front.png");
-            this.playerPicture.translate(0, getCellSize());
+            this.playerPicture.translate(0, CELL_SIZE);
             ++row;
         }
     }

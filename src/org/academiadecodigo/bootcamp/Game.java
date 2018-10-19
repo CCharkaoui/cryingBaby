@@ -9,28 +9,25 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 /**
- * this class is responsible for the interaction between player, baby and objects
+ * This class is responsible for the interaction between player, baby and objects
  */
 public class Game implements KeyboardHandler {
 
-    // Propertieso
+    // Properties
     public final static int NUMBER_OF_OBJECTS = 6;
+    public final static int COLS = 20;
+    public final static int ROWS = 12;
     private GameObjects[][] objectsPosition;
     private Keyboard keyboard;
     private Player player;
     private Baby baby;
-    private int cols;
-    private int rows;
     private Rectangle field;
     private Picture[][] fieldPictures;
 
     // Constructor
-    public Game(int cols, int rows) {
+    public Game() {
 
-        this.cols = cols;
-        this.rows = rows;
-
-        field = new Rectangle(GameObjects.PADDING, GameObjects.PADDING, this.cols * GameObjects.CELL_SIZE, this.rows * GameObjects.CELL_SIZE);
+        field = new Rectangle(GameObjects.PADDING, GameObjects.PADDING, COLS * GameObjects.CELL_SIZE, ROWS * GameObjects.CELL_SIZE);
         field.setColor(Color.BLACK);
         field.draw();
 
@@ -44,16 +41,18 @@ public class Game implements KeyboardHandler {
             }
         }
 
+        // Player and keyboard setup
+        player = new Player(0, 0);
+
         // Set game objects position
-        objectsPosition = new GameObjects[rows][cols];
-        objectsPosition[rows/2][cols/2] = new Baby(rows/2, cols/2);
+        objectsPosition = new GameObjects[ROWS][COLS];
+        objectsPosition[ROWS/2][COLS/2] = new Baby(ROWS/2, COLS/2);
 
         objectsPosition = ObjectFactory.createRandomObjects(this);
 
 
 
-        // Player and keyboard setup
-        player = new Player(0, 0, this);
+
         keyboard = new Keyboard(this);
         keyboardInit();
     }
@@ -63,15 +62,14 @@ public class Game implements KeyboardHandler {
         return objectsPosition;
     }
 
-    public int getCols() {
-        return cols;
+    public Player getPlayer() {
+        return player;
     }
 
-    public int getRows() {
-        return rows;
-    }
 
     // Methods
+
+
     //  keyboard events
     public void keyboardInit() {
 
@@ -110,6 +108,8 @@ public class Game implements KeyboardHandler {
         keyboard.addEventListener(up);
         keyboard.addEventListener(down);
     }
+
+
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {

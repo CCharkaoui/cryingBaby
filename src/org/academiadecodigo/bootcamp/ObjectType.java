@@ -20,7 +20,12 @@ public enum ObjectType {
 
     }
 
-    public static String getRandomObject() {
+    /**
+     * Generates Random Objects (60% Good Types and 40% Bad Types)
+     * @return objectFileName
+     */
+
+    public static String generateRandomObject() {
 
 
         // The probability (%) of choosing each enemy type
@@ -28,11 +33,13 @@ public enum ObjectType {
 
         if (probabilityOfObjectType < 60) {
 
+            //random of good Types between Diaper and Feeder
             int randomGoodType = Randomizer.getRandom(4);
             return values()[randomGoodType].type;
 
         } else {
 
+            //random of bad types between Broccoli and clown
             int randomBadType = Randomizer.getRandom(5, 6);
             return values()[randomBadType].type;
         }

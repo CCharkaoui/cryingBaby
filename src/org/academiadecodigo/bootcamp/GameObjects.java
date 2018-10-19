@@ -2,8 +2,13 @@ package org.academiadecodigo.bootcamp;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 
+/**
+ * Superclass GameObjects
+ */
+
 public class GameObjects {
 
+    //properties
     public static final int PADDING = 10;
     public static final int CELL_SIZE = 64;
     private int col = 0;
@@ -12,6 +17,7 @@ public class GameObjects {
     private int y;
     private Rectangle rectangle;
 
+    //constructor
     public GameObjects(int col, int row) {
 
 
@@ -21,12 +27,10 @@ public class GameObjects {
         rectangle = new Rectangle(x, y, CELL_SIZE, CELL_SIZE);
     }
 
+
+    //getters & setters
     public Rectangle getRectangle() {
         return rectangle;
-    }
-
-    public int getCellSize() {
-        return CELL_SIZE;
     }
 
     public int getRow() {
