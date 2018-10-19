@@ -1,45 +1,47 @@
 package org.academiadecodigo.bootcamp;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Game implements KeyboardHandler {
 
-    private Position[][] grid;
+    private Position[][] cells;
     private Keyboard keyboard;
     private Player player;
     private int cols;
     private int rows;
+    private Rectangle field;
 
     public Game(int cols, int rows) {
 
         this.cols = cols;
         this.rows = rows;
 
+        field = new Rectangle(Position.PADDING, Position.PADDING, this.cols * Position.CELL_SIZE, this.rows * Position.CELL_SIZE);
+        field.setColor(Color.BLACK);
+        field.draw();
 
-        grid = new Position[rows][cols];
+        cells = new Position[rows][cols];
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                grid[row][col] = new Position(col, row);
+                cells[row][col] = new Position(col, row);
             }
         }
 
-        player = new Player(0,0, this);
+
+        player = new Player(0, 0, this);
         keyboard = new Keyboard(this);
 
-        init();
+        keyboardInit();
 
     }
 
-    public Position[][] getGrid() {
-        return grid;
+    public Position[][] getCells() {
+        return cells;
     }
 
     public int getCols() {
@@ -50,7 +52,7 @@ public class Game implements KeyboardHandler {
         return rows;
     }
 
-    public void init() {
+    public void keyboardInit() {
 
 
         KeyboardEvent left = new KeyboardEvent();
@@ -86,57 +88,6 @@ public class Game implements KeyboardHandler {
         keyboard.addEventListener(right);
         keyboard.addEventListener(up);
         keyboard.addEventListener(down);
-        keyboard.addEventListener(fillColor);
-        keyboard.addEventListener(clear);
-        keyboard.addEventListener(save);
-
-    }
-
-    public void paint() {
-
-        if (!grid[player.getCol()][player.getRow()].getRectangle().isFilled()) {
-            grid[player.getCol()][player.getRow()].getRectangle().setColor(Color.BLACK);
-            grid[player.getCol()][player.getRow()].getRectangle().fill();
-            return;
-        }
-
-        grid[player.getCol()][player.getRow()].getRectangle().setColor(Color.WHITE);
-        grid[player.getCol()][player.getRow()].getRectangle().fill();
-        grid[player.getCol()][player.getRow()].getRectangle().setColor(Color.BLACK);
-
-        grid[player.getCol()][player.getRow()].getRectangle().draw();
-
-    }
-
-    public void clear() {
-
-        for (int row = 0; row  < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                grid[row][col].getRectangle().setColor(Color.BLACK);
-                grid[row][col].getRectangle().draw();
-            }
-        }
-    }
-
-    public void save() {
-
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter("resources/temp.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        BufferedWriter bWriter = new BufferedWriter(writer);
-
-        try {
-            bWriter.write(grid.toString());
-            bWriter.flush();
-            bWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
     }
 
     @Override
@@ -156,46 +107,18 @@ public class Game implements KeyboardHandler {
                 break;
             case KeyboardEvent.KEY_UP:
                 player.moveUp();
-
-
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
                 break;
             case KeyboardEvent.KEY_DOWN:
                 player.moveDown();
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
                 break;
-
-            case KeyboardEvent.KEY_SPACE:
-                paint();
-                break;
-
-            case KeyboardEvent.KEY_C:
-                clear();
-                break;
-
-            case KeyboardEvent.KEY_S:
-                save();
-                break;
-
         }
     }
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
 
-    }
-
-    @Override
-    public String toString() {
-
-        String temp = "";
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                temp += grid[row][col].toString();
-            }
-            temp += "\n";
-        }
-        return temp;
     }
 }
 

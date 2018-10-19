@@ -6,8 +6,7 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 public class Position {
 
     public static final int PADDING = 10;
-    private int cellSize = 20;
-    private Color color;
+    public static final int CELL_SIZE = 64;
     private int col = 0;
     private int row = 0;
     private int x;
@@ -17,15 +16,10 @@ public class Position {
     public Position(int col, int row) {
 
 
-        x = PADDING + cellSize*row;
-        y = PADDING + cellSize*col;
+        x = PADDING + CELL_SIZE * row;
+        y = PADDING + CELL_SIZE * col;
 
-        rectangle = new Rectangle(x,y,cellSize,cellSize);
-        rectangle.setColor(Color.BLACK);
-        rectangle.draw();
-
-
-
+        rectangle = new Rectangle(x, y, CELL_SIZE, CELL_SIZE);
     }
 
     public Rectangle getRectangle() {
@@ -33,15 +27,7 @@ public class Position {
     }
 
     public int getCellSize() {
-        return cellSize;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+        return CELL_SIZE;
     }
 
     public int getRow() {
@@ -50,16 +36,6 @@ public class Position {
 
     public int getCol() {
         return col;
-    }
-
-    @Override
-    public String toString() {
-
-        if (rectangle.isFilled()) {
-            return "b";
-
-        }
-        return "w";
     }
 }
 
