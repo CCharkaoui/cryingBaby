@@ -9,8 +9,6 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 public class GameObjects {
 
     //properties
-    public static final int PADDING = 10;
-    public static final int CELL_SIZE = 64;
     private int col = 0;
     private int row = 0;
     private Rectangle rectangle;
@@ -19,7 +17,7 @@ public class GameObjects {
     public GameObjects(int row, int col) {
 
 
-        rectangle = new Rectangle(colToX(col), rowToY(row), CELL_SIZE, CELL_SIZE);
+        rectangle = new Rectangle(colToX(col), rowToY(row), Constants.CELL_SIZE, Constants.CELL_SIZE);
     }
 
 
@@ -36,16 +34,16 @@ public class GameObjects {
         return col;
     }
 
-    private int rowToY (int row) {
+    private int rowToY(int row) {
 
-        int y = PADDING + CELL_SIZE * row;
+        int y = Constants.PADDING + Constants.CELL_SIZE * row;
 
         return y;
     }
 
-    private int colToX (int col) {
+    private int colToX(int col) {
 
-        int x = PADDING + CELL_SIZE * col;
+        int x = Constants.PADDING + Constants.CELL_SIZE * col;
 
         return x;
     }

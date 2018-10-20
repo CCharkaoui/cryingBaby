@@ -33,16 +33,16 @@ public class Player extends GameObjects {
     public void moveLeft() {
         if (col > 0) {
             this.playerPicture.load("resources/left.png");
-            this.playerPicture.translate(-CELL_SIZE, 0);
+            this.playerPicture.translate(-Constants.CELL_SIZE, 0);
             --col;
         }
     }
 
     public void moveRight() {
 
-        if (col < Game.COLS - 1) {
+        if (col < Constants.COLS - 1) {
             this.playerPicture.load("resources/right.png");
-            this.playerPicture.translate(CELL_SIZE, 0);
+            this.playerPicture.translate(Constants.CELL_SIZE, 0);
             ++col;
         }
     }
@@ -51,16 +51,16 @@ public class Player extends GameObjects {
 
         if (row > 0) {
             this.playerPicture.load("resources/back.png");
-            this.playerPicture.translate(0, -CELL_SIZE);
+            this.playerPicture.translate(0, -Constants.CELL_SIZE);
             --row;
         }
     }
 
     public void moveDown() {
 
-        if (row < Game.ROWS - 1) {
+        if (row < Constants.ROWS - 1) {
             this.playerPicture.load("resources/front.png");
-            this.playerPicture.translate(0, CELL_SIZE);
+            this.playerPicture.translate(0, Constants.CELL_SIZE);
             ++row;
         }
     }

@@ -13,12 +13,12 @@ public class ObjectFactory {
 
     //TO DO: PUT THIS WORKING WELL!!!!! WHILE AN OBJECT IS ELIMINATED CREATES ALWAYS NEW OBJECTS UP TO MAX
 
-        GameObjects[][] temp = new GameObjects[Game.ROWS][Game.COLS];
+        GameObjects[][] temp = new GameObjects[Constants.ROWS][Constants.COLS];
         //while (game.getNumberPictures() )
-        for (int numberObjects = 0; numberObjects < Game.MAX_NUMBER_OF_OBJECTS; ) {
+        for (int numberObjects = 0; numberObjects < Constants.MAX_NUMBER_OF_OBJECTS; ) {
 
-            int rowRandom = Randomizer.getRandom(Game.ROWS - 1);
-            int colRandom = Randomizer.getRandom(Game.COLS - 1);
+            int rowRandom = Randomizer.getRandom(Constants.ROWS - 1);
+            int colRandom = Randomizer.getRandom(Constants.COLS - 1);
 
             //Generate a new Object if the position in game is empty
             if (temp[rowRandom][colRandom] == null && game.getPlayer().getCol()
