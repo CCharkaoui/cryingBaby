@@ -27,8 +27,6 @@ public enum ObjectType {
 
     public static String generateRandomObject() {
 
-
-        // The probability (%) of choosing each enemy type
         int probabilityOfObjectType = Randomizer.getRandom(100);
 
         if (probabilityOfObjectType < 60) {
@@ -43,10 +41,6 @@ public enum ObjectType {
             int randomBadType = Randomizer.getRandom(5, 6);
             return values()[randomBadType].type;
         }
-
-
-
-
 
     }
 

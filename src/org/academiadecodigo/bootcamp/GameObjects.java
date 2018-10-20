@@ -9,13 +9,15 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 public class GameObjects {
 
     //properties
-    private int col = 0;
-    private int row = 0;
+    private int col;
+    private int row;
     private Rectangle rectangle;
 
     //constructor
     public GameObjects(int row, int col) {
 
+        this.col = col;
+        this.row = row;
 
         rectangle = new Rectangle(colToX(col), rowToY(row), Constants.CELL_SIZE, Constants.CELL_SIZE);
     }
@@ -47,6 +49,7 @@ public class GameObjects {
 
         return x;
     }
+
 }
 
 

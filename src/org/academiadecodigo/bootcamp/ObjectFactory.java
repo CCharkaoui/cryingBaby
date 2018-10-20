@@ -3,19 +3,17 @@ package org.academiadecodigo.bootcamp;
 public class ObjectFactory {
 
     /**
-     * Generates ramdomly up to 6 objects
+     * Generates randomly a fixed number of objects in game
      * @param game
+     * @param numberObjects
      * @return GameObjects[][]
      */
 
-
-    public static GameObjects[][] createRandomObjects(Game game) {
-
-    //TO DO: PUT THIS WORKING WELL!!!!! WHILE AN OBJECT IS ELIMINATED CREATES ALWAYS NEW OBJECTS UP TO MAX
+    public static GameObjects[][] createRandomObjects(Game game, int numberObjects) {
 
         GameObjects[][] temp = new GameObjects[Constants.ROWS][Constants.COLS];
-        //while (game.getNumberPictures() )
-        for (int numberObjects = 0; numberObjects < Constants.MAX_NUMBER_OF_OBJECTS; ) {
+
+        while (numberObjects > 0) {
 
             int rowRandom = Randomizer.getRandom(Constants.ROWS - 1);
             int colRandom = Randomizer.getRandom(Constants.COLS - 1);
@@ -25,14 +23,15 @@ public class ObjectFactory {
                     != colRandom && game.getPlayer().getRow() != rowRandom) {
 
                 temp[rowRandom][colRandom] = new Object(rowRandom, colRandom);
-                ++numberObjects;
-                //game.changeNumberPictures();
+                --numberObjects;
             }
 
         }
 
         return temp;
     }
+
+
 
 }
 

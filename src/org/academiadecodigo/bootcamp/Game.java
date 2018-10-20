@@ -20,7 +20,6 @@ public class Game implements KeyboardHandler {
     private Baby baby;
     private Rectangle field;
     private Picture[][] fieldPictures;
-    private int numberPictures = 0;
 
     // Constructor
     public Game() {
@@ -41,16 +40,16 @@ public class Game implements KeyboardHandler {
 
         // Player and keyboard setup
         player = new Player(0, 0);
+        keyboard = new Keyboard(this);
+        keyboardInit();
 
         // Set game objects position
         objectsPosition = new GameObjects[Constants.ROWS][Constants.COLS];
-        objectsPosition[Constants.ROWS / 2][Constants.COLS / 2] = new Baby(Constants.ROWS / 2, Constants.COLS / 2);
+        this.baby = new Baby(Constants.ROWS / 2, Constants.COLS / 2);
+        objectsPosition[Constants.ROWS/2][Constants.COLS/2] = baby;
 
-        objectsPosition = ObjectFactory.createRandomObjects(this);
+        objectsPosition = ObjectFactory.createRandomObjects(this, Constants.MAX_NUMBER_OF_OBJECTS);
 
-
-        keyboard = new Keyboard(this);
-        keyboardInit();
 
     }
 
@@ -61,14 +60,6 @@ public class Game implements KeyboardHandler {
 
     public Player getPlayer() {
         return player;
-    }
-
-    public int getNumberPictures() {
-        return numberPictures;
-    }
-
-    public void changeNumberPictures(int numberPictures) {
-        this.numberPictures = numberPictures;
     }
 
     // Methods
@@ -94,34 +85,36 @@ public class Game implements KeyboardHandler {
         down.setKey(KeyboardEvent.KEY_DOWN);
         down.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
-        KeyboardEvent fillColor = new KeyboardEvent();
-        fillColor.setKey(KeyboardEvent.KEY_SPACE);
-        fillColor.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        KeyboardEvent clear = new KeyboardEvent();
-        clear.setKey(KeyboardEvent.KEY_C);
-        clear.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-        KeyboardEvent save = new KeyboardEvent();
-        save.setKey(KeyboardEvent.KEY_S);
-        save.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
-
-
         keyboard.addEventListener(left);
         keyboard.addEventListener(right);
         keyboard.addEventListener(up);
         keyboard.addEventListener(down);
     }
 
-    public void checkObject() {
+    //check if the player is in the position of an object and if so eliminates the picture
+    private void checkObject() {
 
         if (objectsPosition[player.getRow()][player.getCol()] != null) {
 
             ((Object) objectsPosition[player.getRow()][player.getCol()]).getObjectPicture().delete();
-            ObjectFactory.createRandomObjects(this);
+            createRandomObject();
 
         }
 
+    }
+
+
+    //Generate a new Object if the position in game is empty
+    private void createRandomObject() {
+
+        int rowRandom = Randomizer.getRandom(Constants.ROWS - 1);
+        int colRandom = Randomizer.getRandom(Constants.COLS - 1);
+
+        if (objectsPosition[rowRandom][colRandom] == null && player.getCol()
+                != colRandom && player.getRow() != rowRandom) {
+
+            objectsPosition[rowRandom][colRandom] = new Object(rowRandom, colRandom);
+        }
     }
 
 
@@ -131,28 +124,45 @@ public class Game implements KeyboardHandler {
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_LEFT:
 
-                player.moveLeft();
-                checkObject();
+                if (!(player.getCol()-1 == baby.getCol() && player.getRow() == baby.getRow())) {
+                    player.moveLeft();
+                    checkObject();
+                }
 
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
                 break;
+
             case KeyboardEvent.KEY_RIGHT:
-                player.moveRight();
-                checkObject();
+
+                if (!(player.getCol()+1 == baby.getCol() && player.getRow() == baby.getRow())) {
+                    player.moveRight();
+                    checkObject();
+                }
 
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
                 break;
+
             case KeyboardEvent.KEY_UP:
-                player.moveUp();
-                checkObject();
+
+                if (!(player.getCol() == baby.getCol() && player.getRow()-1 == baby.getRow())) {
+                    player.moveUp();
+                    checkObject();
+                }
+
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
                 break;
+
             case KeyboardEvent.KEY_DOWN:
-                player.moveDown();
-                checkObject();
+
+                if (!(player.getCol() == baby.getCol() && player.getRow()+1 == baby.getRow())) {
+                    player.moveDown();
+                    checkObject();
+                }
+
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
                 break;
         }
+
     }
 
     @Override
