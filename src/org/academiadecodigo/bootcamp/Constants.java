@@ -1,5 +1,7 @@
 package org.academiadecodigo.bootcamp;
 
+import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 public class Constants {
 
     // Game

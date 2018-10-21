@@ -20,6 +20,7 @@ public class Game implements KeyboardHandler {
     private Baby baby;
     private Rectangle field;
     private Picture[][] fieldPictures;
+    private PlayerStatusBar playerStatusBar;
 
     // Constructor
     public Game() {
@@ -46,11 +47,12 @@ public class Game implements KeyboardHandler {
         // Set game objects position
         objectsPosition = new GameObjects[Constants.ROWS][Constants.COLS];
         this.baby = new Baby(Constants.ROWS / 2, Constants.COLS / 2);
-        objectsPosition[Constants.ROWS/2][Constants.COLS/2] = baby;
+        objectsPosition[Constants.ROWS / 2][Constants.COLS / 2] = baby;
 
         objectsPosition = ObjectFactory.createRandomObjects(this, Constants.MAX_NUMBER_OF_OBJECTS);
 
-
+        // Player Status Bar
+        playerStatusBar = new PlayerStatusBar();
     }
 
     // Getters/setters
@@ -124,7 +126,7 @@ public class Game implements KeyboardHandler {
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_LEFT:
 
-                if (!(player.getCol()-1 == baby.getCol() && player.getRow() == baby.getRow())) {
+                if (!(player.getCol() - 1 == baby.getCol() && player.getRow() == baby.getRow())) {
                     player.moveLeft();
                     checkObject();
                 }
@@ -134,7 +136,7 @@ public class Game implements KeyboardHandler {
 
             case KeyboardEvent.KEY_RIGHT:
 
-                if (!(player.getCol()+1 == baby.getCol() && player.getRow() == baby.getRow())) {
+                if (!(player.getCol() + 1 == baby.getCol() && player.getRow() == baby.getRow())) {
                     player.moveRight();
                     checkObject();
                 }
@@ -144,7 +146,7 @@ public class Game implements KeyboardHandler {
 
             case KeyboardEvent.KEY_UP:
 
-                if (!(player.getCol() == baby.getCol() && player.getRow()-1 == baby.getRow())) {
+                if (!(player.getCol() == baby.getCol() && player.getRow() - 1 == baby.getRow())) {
                     player.moveUp();
                     checkObject();
                 }
@@ -154,7 +156,7 @@ public class Game implements KeyboardHandler {
 
             case KeyboardEvent.KEY_DOWN:
 
-                if (!(player.getCol() == baby.getCol() && player.getRow()+1 == baby.getRow())) {
+                if (!(player.getCol() == baby.getCol() && player.getRow() + 1 == baby.getRow())) {
                     player.moveDown();
                     checkObject();
                 }
