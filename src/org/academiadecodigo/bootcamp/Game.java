@@ -21,6 +21,7 @@ public class Game implements KeyboardHandler {
     private Rectangle field;
     private Picture[][] fieldPictures;
     private PlayerStatusBar playerStatusBar;
+    //private int currentNumberOfObjects = 0;
     GameInitialMenu menu;
 
     // Constructor
@@ -44,20 +45,21 @@ public class Game implements KeyboardHandler {
             }
         }
 
-        // Player and keyboard setup
+        // Player
         player = new Player(0, 0);
         keyboard = new Keyboard(this);
-        keyboardInit();
 
         // Set game objects position
         objectsPosition = new GameObjects[Constants.ROWS][Constants.COLS];
         this.baby = new Baby(Constants.ROWS / 2, Constants.COLS / 2);
         objectsPosition[Constants.ROWS / 2][Constants.COLS / 2] = baby;
 
-        objectsPosition = ObjectFactory.createRandomObjects(this, Constants.MAX_NUMBER_OF_OBJECTS);
+        objectsPosition = ObjectFactory.createObjects(this, Constants.TOTAL_NUMBER_OF_OBJECTS);
 
         // Player Status Bar
         playerStatusBar = new PlayerStatusBar();
+
+        keyboardInit();
     }
 
     // Getters/setters
@@ -67,6 +69,14 @@ public class Game implements KeyboardHandler {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Baby getBaby() {
+        return baby;
+    }
+
+    public void changeObjectsPosition(GameObjects[][] objectsPosition) {
+        this.objectsPosition = objectsPosition;
     }
 
     // Methods
@@ -101,18 +111,18 @@ public class Game implements KeyboardHandler {
         keyboard.addEventListener(down);
     }
 
-    //check if the player is in the position of an object and if so eliminates the picture
+    //check if the player is in the position of an object and if so eliminates the picture and object reference
     private void checkObject() {
 
         if (objectsPosition[player.getRow()][player.getCol()] != null) {
 
             ((Object) objectsPosition[player.getRow()][player.getCol()]).getObjectPicture().delete();
+            objectsPosition[player.getRow()][player.getCol()] = null;
             createRandomObject();
 
         }
 
     }
-
 
     //Generate a new Object if the position in game is empty
     private void createRandomObject() {
@@ -121,10 +131,35 @@ public class Game implements KeyboardHandler {
         int colRandom = Randomizer.getRandom(Constants.COLS - 1);
 
         if (objectsPosition[rowRandom][colRandom] == null && player.getCol()
-                != colRandom && player.getRow() != rowRandom) {
+                != colRandom && player.getRow() != rowRandom ) {
 
-            objectsPosition[rowRandom][colRandom] = new Object(rowRandom, colRandom);
+            //Generate a random object if baby need is in game
+            if (!babyNeedExistInGame()) {
+
+                objectsPosition[rowRandom][colRandom] = new Object(rowRandom,colRandom,baby.getBabyNeed());
+
+            } else {
+
+                objectsPosition[rowRandom][colRandom] = new Object(rowRandom, colRandom);
+            }
         }
+    }
+
+    //Check if baby need exists in Game
+    private boolean babyNeedExistInGame() {
+
+        for (int row = 0; row < Constants.ROWS; row++) {
+            for (int col = 0; col < Constants.COLS; col++) {
+
+                if ((objectsPosition[row][col] != null) && (objectsPosition[row][col] != objectsPosition[baby.getRow()][baby.getCol()])
+                        &&  ((Object) objectsPosition[row][col]).getType() == baby.getBabyNeed()) {
+                    return true;
+                }
+
+            }
+        }
+
+        return false;
     }
 
 

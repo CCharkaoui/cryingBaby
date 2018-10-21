@@ -5,7 +5,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Constants {
 
     // Game
-    public final static int MAX_NUMBER_OF_OBJECTS = 6;
+    public final static int TOTAL_NUMBER_OF_OBJECTS = 10;
     public final static int COLS = 20;
     public final static int ROWS = 12;
 

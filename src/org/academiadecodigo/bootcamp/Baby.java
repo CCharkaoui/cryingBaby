@@ -9,6 +9,7 @@ public class Baby extends GameObjects {
     private boolean crying;
     private int col;
     private int row;
+    private ObjectType babyNeed;
 
 
     // constructor
@@ -17,6 +18,7 @@ public class Baby extends GameObjects {
         this.col = col;
         this.row = row;
         this.crying = false;
+        babyNeed = ObjectType.CUBES;
         babyPicture = new Picture(getRectangle().getX(), getRectangle().getY(), "resources/babyNormal.png");
         babyPicture.draw();
     }
@@ -29,6 +31,18 @@ public class Baby extends GameObjects {
 
     public void cry(boolean state) {
         this.crying = state;
+    }
+
+    public Picture getBabyPicture() {
+        return babyPicture;
+    }
+
+    public void newBabyNeed() {
+        this.babyNeed = babyNeed;
+    }
+
+    public ObjectType getBabyNeed() {
+        return babyNeed;
     }
 
     @Override

@@ -36,14 +36,14 @@ public class GameObjects {
         return col;
     }
 
-    private int rowToY(int row) {
+    public int rowToY(int row) {
 
         int y = Constants.PADDING + Constants.CELL_SIZE * row;
 
         return y;
     }
 
-    private int colToX(int col) {
+    public int colToX(int col) {
 
         int x = Constants.PADDING + Constants.CELL_SIZE * col;
 
