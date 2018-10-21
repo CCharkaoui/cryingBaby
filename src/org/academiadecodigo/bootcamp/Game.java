@@ -21,10 +21,15 @@ public class Game implements KeyboardHandler {
     private Rectangle field;
     private Picture[][] fieldPictures;
     private PlayerStatusBar playerStatusBar;
+    GameInitialMenu menu;
 
     // Constructor
     public Game() {
+        gameDefinition();
+    }
 
+    // Everything needed to setup and start the game
+    private void gameDefinition() {
         field = new Rectangle(Constants.PADDING, Constants.PADDING, Constants.COLS * Constants.CELL_SIZE, Constants.ROWS * Constants.CELL_SIZE);
         field.setColor(Color.BLACK);
         field.draw();
@@ -66,27 +71,30 @@ public class Game implements KeyboardHandler {
 
     // Methods
 
-
     //  keyboard events
     public void keyboardInit() {
 
-
+        // Left
         KeyboardEvent left = new KeyboardEvent();
         left.setKey(KeyboardEvent.KEY_LEFT);
         left.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        // Right
         KeyboardEvent right = new KeyboardEvent();
         right.setKey(KeyboardEvent.KEY_RIGHT);
         right.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        // Up
         KeyboardEvent up = new KeyboardEvent();
         up.setKey(KeyboardEvent.KEY_UP);
         up.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        // Down
         KeyboardEvent down = new KeyboardEvent();
         down.setKey(KeyboardEvent.KEY_DOWN);
         down.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
 
+        // Event listeners
         keyboard.addEventListener(left);
         keyboard.addEventListener(right);
         keyboard.addEventListener(up);
@@ -162,6 +170,9 @@ public class Game implements KeyboardHandler {
                 }
 
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
+                break;
+            case KeyboardEvent.KEY_P:
+                gameDefinition();
                 break;
         }
 
