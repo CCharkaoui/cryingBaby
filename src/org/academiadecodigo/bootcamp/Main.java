@@ -7,5 +7,9 @@ public class Main {
         //Game game = new Game();
 
         GameInitialMenu game = new GameInitialMenu();
+
+        //GameInstructions instructions = new GameInstructions();
+
+        //GameOver gameOver = new GameOver(true);
     }
 }

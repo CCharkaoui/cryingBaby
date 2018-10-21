@@ -13,7 +13,7 @@ public class GameInitialMenu implements KeyboardHandler {
     // Properties
     private Rectangle field;
     private Picture[][] fieldPictures;
-    private Picture menuLettersLogo, startBtn, babyLogo, fatherLogo, motherLogo;
+    private Picture menuLettersLogo, startBtn, instructionsBtn, babyLogo, fatherLogo, motherLogo;
 
     // Constructor
     public GameInitialMenu() {
@@ -28,6 +28,12 @@ public class GameInitialMenu implements KeyboardHandler {
         pStart.setKey(KeyboardEvent.KEY_P);
         pStart.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(pStart);
+
+        // I - to go to instructions menu
+        KeyboardEvent instructionsMenu = new KeyboardEvent();
+        instructionsMenu.setKey(KeyboardEvent.KEY_I);
+        instructionsMenu.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(instructionsMenu);
     }
 
     private void menuBackgroundGenerator() {
@@ -51,7 +57,8 @@ public class GameInitialMenu implements KeyboardHandler {
         babyLogo = new Picture(Constants.PADDING * Constants.COLS * 2.5, Constants.PADDING * Constants.ROWS + Constants.CELL_SIZE * 3, "resources/cryingBabyMenuLogo.png");
         fatherLogo = new Picture(0, Constants.PADDING * Constants.ROWS + Constants.CELL_SIZE - 35, "resources/scaredFather.png");
         motherLogo = new Picture(Constants.PADDING * Constants.COLS + Constants.CELL_SIZE * 6.8, Constants.PADDING * Constants.ROWS + Constants.CELL_SIZE - 18, "resources/madMother.png");
-        startBtn = new Picture(Constants.PADDING + Constants.CELL_SIZE * Constants.COLS / 3, 0, "resources/startBtn.png");
+        startBtn = new Picture(Constants.PADDING + Constants.CELL_SIZE, Constants.PADDING, "resources/startBtn.png");
+        instructionsBtn = new Picture(Constants.PADDING + Constants.CELL_SIZE * Constants.COLS - Constants.CELL_SIZE * 11, Constants.PADDING, "resources/instructionsBtn.png");
 
         // Order of pictures appearance
         menuLettersLogo.draw();
@@ -59,6 +66,7 @@ public class GameInitialMenu implements KeyboardHandler {
         motherLogo.draw();
         babyLogo.draw();
         startBtn.draw();
+        instructionsBtn.draw();
     }
 
     private void deleteMenu() {
@@ -67,16 +75,21 @@ public class GameInitialMenu implements KeyboardHandler {
         motherLogo.delete();
         babyLogo.delete();
         startBtn.delete();
+        instructionsBtn.delete();
     }
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
         switch (keyboardEvent.getKey()) {
             case KeyboardEvent.KEY_P:
-                // Delete the menu contents
+                // Delete the menu contents (not really necessary, but wtv...)
                 deleteMenu();
                 // start the game itself
                 Game game = new Game();
+                break;
+            case KeyboardEvent.KEY_I:
+                // Go to instructions
+                GameInstructions gameInstructions = new GameInstructions();
                 break;
         }
     }
