@@ -25,8 +25,6 @@ public class ObjectFactory {
 
                 temp[rowRandom][colRandom] = new Object(rowRandom, colRandom, ObjectType.values()[i]);
                 --numberObjects;
-
-
             }
         }
 
@@ -43,10 +41,8 @@ public class ObjectFactory {
                 temp[rowRandom][colRandom] = new Object(rowRandom, colRandom);
                 --numberObjects;
             }
-
         }
 
         return temp;
     }
 }
-

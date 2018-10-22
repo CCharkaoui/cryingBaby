@@ -22,7 +22,6 @@ public class GameObjects {
         rectangle = new Rectangle(colToX(col), rowToY(row), Constants.CELL_SIZE, Constants.CELL_SIZE);
     }
 
-
     //getters & setters
     public Rectangle getRectangle() {
         return rectangle;
@@ -36,14 +35,18 @@ public class GameObjects {
         return col;
     }
 
-    public int rowToY(int row) {
+    //methods
+
+    //convert row to Y position necessary to design rectangles
+    private int rowToY(int row) {
 
         int y = Constants.PADDING + Constants.CELL_SIZE * row;
 
         return y;
     }
 
-    public int colToX(int col) {
+    //convert column to X position necessary to design rectangles
+    private int colToX(int col) {
 
         int x = Constants.PADDING + Constants.CELL_SIZE * col;
 

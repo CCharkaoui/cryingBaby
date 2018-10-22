@@ -21,7 +21,6 @@ public class Game implements KeyboardHandler {
     private Rectangle field;
     private Picture[][] fieldPictures;
     private PlayerStatusBar playerStatusBar;
-    //private int currentNumberOfObjects = 0;
     GameInitialMenu menu;
 
     // Constructor
@@ -117,11 +116,11 @@ public class Game implements KeyboardHandler {
         if (objectsPosition[player.getRow()][player.getCol()] != null) {
 
             ((Object) objectsPosition[player.getRow()][player.getCol()]).getObjectPicture().delete();
+
+            isObjectBabyNeed();
             objectsPosition[player.getRow()][player.getCol()] = null;
             createRandomObject();
-
         }
-
     }
 
     //Generate a new Object if the position in game is empty
@@ -155,13 +154,78 @@ public class Game implements KeyboardHandler {
                         &&  ((Object) objectsPosition[row][col]).getType() == baby.getBabyNeed()) {
                     return true;
                 }
-
             }
         }
-
         return false;
     }
 
+    //Check if object picked by Player corresponds to Baby need
+    private void isObjectBabyNeed() {
+
+        if (((Object) objectsPosition[player.getRow()][player.getCol()]).getType() == baby.getBabyNeed()) {
+
+            //Player Status is adjusted
+            player.setCorrectGuesses(player.getCorrectGuesses()+1);
+            player.setTries(3);
+
+        } else {
+
+            player.setTries(player.getTries()-1);
+        }
+
+        //A new baby need is generated if player catches bad types or achieved 0 tries
+        if (player.getTries() == 0 ||
+                ((Object) objectsPosition[player.getRow()][player.getCol()]).getType() == ObjectType.BROCCOLI ||
+                ((Object) objectsPosition[player.getRow()][player.getCol()]).getType() == ObjectType.CLOWN) {
+
+            player.setWrongGuesses(player.getWrongGuesses()+1);
+            player.setTries(3);
+            baby.newBabyNeed();
+        }
+
+        playerScore();
+    }
+
+    //Adjust Player Status Bar
+    private void playerScore() {
+
+         switch (player.getWrongGuesses()) {
+
+             case 1:
+                 playerStatusBar.scoreBadIndicators(1);
+                 break;
+
+             case 2:
+                 playerStatusBar.scoreBadIndicators(2);
+                 break;
+
+             case 3:
+                 playerStatusBar.scoreBadIndicators(3);
+                 GameOver badEnd = new GameOver(false);
+                 break;
+
+         }
+
+         switch (player.getCorrectGuesses()) {
+
+             case 1:
+                 playerStatusBar.scoreGoodIndicators(1);
+                 break;
+
+             case 2:
+                 playerStatusBar.scoreGoodIndicators(2);
+                 break;
+
+             case 3:
+                 playerStatusBar.scoreGoodIndicators(3);
+                 GameOver goodEnd = new GameOver(true);
+                 break;
+
+             default:
+                 break;
+         }
+
+    }
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
@@ -173,8 +237,8 @@ public class Game implements KeyboardHandler {
                     player.moveLeft();
                     checkObject();
                 }
-
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
+                System.out.println("Correct guesses: " + player.getCorrectGuesses() + " tries: " + player.getTries());
                 break;
 
             case KeyboardEvent.KEY_RIGHT:
@@ -183,8 +247,8 @@ public class Game implements KeyboardHandler {
                     player.moveRight();
                     checkObject();
                 }
-
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
+                System.out.println("Correct guesses: " + player.getCorrectGuesses() + " tries: " + player.getTries());
                 break;
 
             case KeyboardEvent.KEY_UP:
@@ -193,8 +257,8 @@ public class Game implements KeyboardHandler {
                     player.moveUp();
                     checkObject();
                 }
-
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
+                System.out.println("Correct guesses: " + player.getCorrectGuesses() + " tries: " + player.getTries());
                 break;
 
             case KeyboardEvent.KEY_DOWN:
@@ -203,14 +267,14 @@ public class Game implements KeyboardHandler {
                     player.moveDown();
                     checkObject();
                 }
-
                 System.out.println("col " + player.getCol() + ". row " + player.getRow());
+                System.out.println("Correct guesses: " + player.getCorrectGuesses() + " tries: " + player.getTries());
                 break;
+
             case KeyboardEvent.KEY_P:
                 gameDefinition();
                 break;
         }
-
     }
 
     @Override

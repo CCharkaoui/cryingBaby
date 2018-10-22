@@ -32,9 +32,7 @@ public class Object extends GameObjects {
         objectPicture.draw();
     }
 
-
     //getters & setters
-
 
     public Picture getObjectPicture() {
         return objectPicture;

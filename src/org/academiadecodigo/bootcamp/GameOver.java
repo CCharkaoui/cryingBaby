@@ -14,9 +14,9 @@ public class GameOver {
     private boolean goodEndType;
 
     // Constructor
-    public GameOver(boolean goodEndType) {
+    public GameOver(boolean endType) {
 
-        this.goodEndType = goodEndType;
+        this.goodEndType = endType;
 
         menuBackgroundGenerator();
         gameOverMotherType();
@@ -39,20 +39,21 @@ public class GameOver {
         }
     }
 
-    private boolean gameOverMotherType() {
+    private void gameOverMotherType() {
+
         if (this.goodEndType) {
             // Good ending
             goodEndingLetters = new Picture(Constants.PADDING + Constants.CELL_SIZE * Constants.COLS / 3, Constants.PADDING + Constants.CELL_SIZE * 2, "resources/goodEnding.png");
             goodEndingLetters.draw();
             happyMotherEnding = new Picture(Constants.PADDING + Constants.CELL_SIZE * Constants.COLS / 2, Constants.PADDING + Constants.CELL_SIZE * Constants.ROWS - Constants.CELL_SIZE * 3.35, "resources/happyMotherGameOver.png");
             happyMotherEnding.draw();
-            return this.goodEndType;
+            return;
+
         }
         // Bad ending
         badEndingLetters = new Picture(Constants.PADDING + Constants.CELL_SIZE * Constants.COLS / 3.5, Constants.PADDING + Constants.CELL_SIZE * 2, "resources/badEnding.png");
         badEndingLetters.draw();
         madMotherEnding = new Picture(Constants.PADDING + Constants.CELL_SIZE * Constants.COLS / 2, Constants.PADDING + Constants.CELL_SIZE * Constants.ROWS - Constants.CELL_SIZE * 3.75, "resources/madMotherGameOver.png");
         madMotherEnding.draw();
-        return this.goodEndType == false;
     }
 }

@@ -18,8 +18,8 @@ public class Baby extends GameObjects {
         this.col = col;
         this.row = row;
         this.crying = false;
-        babyNeed = ObjectType.CUBES;
-        babyPicture = new Picture(getRectangle().getX(), getRectangle().getY(), "resources/babyNormal.png");
+        babyNeed = ObjectType.generateGoodType();
+        babyPicture = new Picture(getRectangle().getX(), getRectangle().getY(), "resources/babycrying64.png");
         babyPicture.draw();
     }
 
@@ -38,7 +38,7 @@ public class Baby extends GameObjects {
     }
 
     public void newBabyNeed() {
-        this.babyNeed = babyNeed;
+        this.babyNeed = ObjectType.generateGoodType();
     }
 
     public ObjectType getBabyNeed() {

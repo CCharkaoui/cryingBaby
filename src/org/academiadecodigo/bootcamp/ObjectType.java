@@ -17,7 +17,6 @@ public enum ObjectType {
 
     ObjectType(String type) {
         this.type = type;
-
     }
 
     //This getter method will be used to get the respective object fileName
@@ -49,31 +48,9 @@ public enum ObjectType {
         }
     }
 
-    /**
-     * Generates Random Types of Object (60% Good Types and 40% Bad Types)
-     *
-     * @return objectFileName
-     */
+    public static ObjectType generateGoodType() {
 
-    public static String generateRandomObject() {
-
-        int probabilityOfObjectType = Randomizer.getRandom(100);
-
-        if (probabilityOfObjectType < 60) {
-
-            //random of good Types between Diaper and Feeder
-            int randomGoodType = Randomizer.getRandom(4);
-            return values()[randomGoodType].type;
-
-        } else {
-
-            //random of bad types between Broccoli and clown
-            int randomBadType = Randomizer.getRandom(5, 6);
-            return values()[randomBadType].type;
-        }
-
+        int random = Randomizer.getRandom(4);
+        return values()[random];
     }
-
-
-
 }

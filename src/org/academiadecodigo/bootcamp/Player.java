@@ -8,6 +8,9 @@ public class Player extends GameObjects {
     private Picture playerPicture;
     private int col;
     private int row;
+    private int tries = 3;
+    private int correctGuesses = 0;
+    private int wrongGuesses = 0;
 
     //constructor
     public Player(int row, int col) {
@@ -27,6 +30,30 @@ public class Player extends GameObjects {
     @Override
     public int getRow() {
         return row;
+    }
+
+    public int getTries() {
+        return tries;
+    }
+
+    public int getCorrectGuesses() {
+        return correctGuesses;
+    }
+
+    public int getWrongGuesses() {
+        return wrongGuesses;
+    }
+
+    public void setCorrectGuesses(int correctGuesses) {
+        this.correctGuesses = correctGuesses;
+    }
+
+    public void setTries(int tries) {
+        this.tries = tries;
+    }
+
+    public void setWrongGuesses(int wrongGuesses) {
+        this.wrongGuesses = wrongGuesses;
     }
 
     //methods
@@ -64,6 +91,4 @@ public class Player extends GameObjects {
             ++row;
         }
     }
-
-
 }
