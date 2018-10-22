@@ -2,9 +2,13 @@ package org.academiadecodigo.bootcamp;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-public class GameOver {
+public class GameOver implements KeyboardHandler {
 
     // Properties
     private Rectangle field;
@@ -20,6 +24,13 @@ public class GameOver {
 
         menuBackgroundGenerator();
         gameOverMotherType();
+
+        //Q - to exit Game
+        Keyboard keyboard = new Keyboard(this);
+        KeyboardEvent exit = new KeyboardEvent();
+        exit.setKey(KeyboardEvent.KEY_Q);
+        exit.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(exit);
     }
 
     // Methods
@@ -55,5 +66,19 @@ public class GameOver {
         badEndingLetters.draw();
         madMotherEnding = new Picture(Constants.PADDING + Constants.CELL_SIZE * Constants.COLS / 2, Constants.PADDING + Constants.CELL_SIZE * Constants.ROWS - Constants.CELL_SIZE * 3.75, "resources/madMotherGameOver.png");
         madMotherEnding.draw();
+    }
+
+    @Override
+    public void keyPressed(KeyboardEvent keyboardEvent) {
+        switch (keyboardEvent.getKey()) {
+            case KeyboardEvent.KEY_Q:
+                //Exit the game
+                System.exit(0);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyboardEvent keyboardEvent) {
+
     }
 }

@@ -34,6 +34,12 @@ public class GameInitialMenu implements KeyboardHandler {
         instructionsMenu.setKey(KeyboardEvent.KEY_I);
         instructionsMenu.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(instructionsMenu);
+
+        //Q - to exit Game
+        KeyboardEvent exit = new KeyboardEvent();
+        exit.setKey(KeyboardEvent.KEY_Q);
+        exit.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(exit);
     }
 
     private void menuBackgroundGenerator() {
@@ -91,6 +97,10 @@ public class GameInitialMenu implements KeyboardHandler {
                 // Go to instructions
                 GameInstructions gameInstructions = new GameInstructions();
                 break;
+
+            case KeyboardEvent.KEY_Q:
+                //Exit the game
+                System.exit(0);
         }
     }
 
