@@ -1,6 +1,6 @@
 package org.academiadecodigo.bootcamp;
 
-public class Main {
+public class CryingBaby {
 
     public static void main(String[] args) {
 
