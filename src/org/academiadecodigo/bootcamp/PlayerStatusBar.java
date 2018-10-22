@@ -13,7 +13,7 @@ public class PlayerStatusBar {
 
     // Constructor
     public PlayerStatusBar() {
-        statusBarBackground();
+        //statusBarBackground();
         lifeIndicators();
         babyHappinessIndicators();
     }
@@ -37,7 +37,7 @@ public class PlayerStatusBar {
         }
     }
 
-    //Delete a lifeindicator from player status bar for each player wrong guess
+    //Delete a life indicator from player status bar for each player wrong guess
     public void scoreBadIndicators (int playerWrongGuesses) {
 
         switch (playerWrongGuesses) {
@@ -57,10 +57,10 @@ public class PlayerStatusBar {
     }
 
 
-    private void statusBarBackground() {
+    /**private void statusBarBackground() {
         barBackground = new Picture(Constants.COLS * Constants.CELL_SIZE + Constants.PADDING * 2, Constants.PADDING, "resources/barBackgroundPicture.png");
         barBackground.draw();
-    }
+    }*/
 
     private void lifeIndicators() {
 
