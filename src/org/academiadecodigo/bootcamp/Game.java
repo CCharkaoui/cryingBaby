@@ -141,6 +141,10 @@ public class Game implements KeyboardHandler {
 
                 objectsPosition[rowRandom][colRandom] = new Object(rowRandom, colRandom);
             }
+
+        } else {
+
+            createRandomObject();
         }
     }
 
